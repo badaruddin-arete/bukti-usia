@@ -16,6 +16,21 @@ Tiga peran:
 
 Penerbit menandatangani pernyataan seperti "pemegang berusia sedikitnya 13 tahun". Tanggal lahir tidak ikut dalam klaim, jadi pemverifikasi tidak dapat menerimanya. Pemegang membawa beberapa klaim (13, 16, 18) dan menyerahkan **yang terkecil yang masih cukup**, supaya tidak membuka lebih dari yang diminta.
 
+### Alur
+
+```mermaid
+sequenceDiagram
+    participant W as Warga (pemegang)
+    participant K as Kelurahan (penerbit)
+    participant P as Platform (pemverifikasi)
+    W->>K: tanggal lahir (satu kali)
+    K->>W: klaim "usia ≥ 13 / 16 / 18" bertanda tangan, tanpa tanggal lahir
+    P->>W: butuh usia ≥ 13
+    W->>P: klaim terkecil yang cukup (13)
+    P->>P: periksa tanda tangan, masa berlaku, pencabutan
+    P-->>W: diterima atau ditolak, klaim tidak disimpan
+```
+
 ## Keputusan desain
 
 | Keputusan | Alasan |
