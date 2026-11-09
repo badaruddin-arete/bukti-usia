@@ -64,6 +64,17 @@ Bagian ini sama pentingnya dengan kodenya.
 
 Karena itu karya ini berhenti di tanda tangan dan menjadikan ZKP sebagai arah lanjutan, bukan klaim yang sudah dikerjakan.
 
+## Wawancara awal
+
+Kuesioner pilihan ganda lewat WhatsApp, tanpa nama dan sukarela, dijawab 5 orang (4 mahasiswa, semuanya kenalan penyusun). Ini gambaran awal, bukan temuan yang dapat digeneralisasi.
+
+- 4 dari 5 memilih foto KTP sebagai data yang paling berat diberikan untuk membuktikan usia.
+- 3 dari 5 merasa lebih tenang bila cukup menunjukkan "di atas 18" tanpa tanggal lahir; 1 justru kurang percaya.
+- Tidak ada yang mempercayai platform untuk menyatakan usia; 3 dari 4 yang menjawab memilih orang tua atau diri sendiri, 1 memilih pemerintah.
+- Jalur keberatan yang mudah ditemukan adalah kebutuhan yang paling banyak dipilih (3 dari 5).
+
+Temuan kedua dan ketiga menantang asumsi bahwa kelurahan adalah penerbit yang paling dipercaya. Rincian dan keterbatasannya ada di halaman studi.
+
 ## Menjalankan
 
 ```bash
