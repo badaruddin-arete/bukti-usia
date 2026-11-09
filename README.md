@@ -1,5 +1,7 @@
 # Bukti Usia: prototipe kedaulatan data dengan tanda tangan digital
 
+![tests](https://github.com/badaruddin-arete/bukti-usia/actions/workflows/tests.yml/badge.svg)
+
 Karya 3 dari rangkaian karya filsafat teknologi. Studi *Value Sensitive Design* tentang pertanyaan: bagaimana sebuah platform memenuhi kewajiban memverifikasi usia pengguna tanpa mengumpulkan lebih dari yang perlu?
 
 Prototipe ini sengaja kecil. Ia memakai **tanda tangan digital saja**, bukan *zero-knowledge proof* (ZKP), dan keterbatasannya dijelaskan terang di bawah.
