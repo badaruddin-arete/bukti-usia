@@ -3,7 +3,15 @@ from datetime import date, timedelta
 
 import pytest
 
-from bukti_usia import Dompet, Pemverifikasi, Penerbit, PenerbitError, usia_penuh
+from bukti_usia import (
+    Dompet,
+    Pemverifikasi,
+    Penerbit,
+    PenerbitError,
+    PenerbitTepercaya,
+    TingkatKepastian,
+    usia_penuh,
+)
 from bukti_usia.klaim import Klaim
 
 HARI_INI = date(2026, 11, 9)
@@ -19,7 +27,7 @@ def penerbit() -> Penerbit:
 
 @pytest.fixture
 def verifikator(penerbit: Penerbit) -> Pemverifikasi:
-    return Pemverifikasi({penerbit.nama: penerbit.kunci_publik})
+    return Pemverifikasi({penerbit.nama: PenerbitTepercaya(penerbit.kunci_publik, TingkatKepastian.TINGGI)})
 
 
 # --- usia dan penerbitan -------------------------------------------------
@@ -147,7 +155,7 @@ def test_klaim_kedaluwarsa_ditolak(penerbit, verifikator):
 
 def test_klaim_dicabut_ditolak_setelah_keberatan(penerbit):
     bukti = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
-    verifikator = Pemverifikasi({penerbit.nama: penerbit.kunci_publik}, daftar_cabut={bukti.klaim.id_klaim})
+    verifikator = Pemverifikasi({penerbit.nama: PenerbitTepercaya(penerbit.kunci_publik, TingkatKepastian.TINGGI)}, daftar_cabut={bukti.klaim.id_klaim})
     hasil = verifikator.periksa(bukti, 18, HARI_INI)
     assert not hasil.sah and "dicabut" in hasil.alasan
 
@@ -165,3 +173,66 @@ def test_keterbatasan_klaim_yang_sama_dapat_dikaitkan_antarplatform(penerbit):
     dilihat_platform_a = bukti.klaim.id_klaim
     dilihat_platform_b = bukti.klaim.id_klaim
     assert dilihat_platform_a == dilihat_platform_b
+
+
+# --- tingkat kepastian ----------------------------------------------------
+
+
+def _verifikator(penerbit: Penerbit, kepastian: TingkatKepastian, **kwargs) -> Pemverifikasi:
+    return Pemverifikasi({penerbit.nama: PenerbitTepercaya(penerbit.kunci_publik, kepastian)}, **kwargs)
+
+
+def test_penerbit_kepastian_rendah_ditolak_untuk_layanan_berisiko_tinggi(penerbit):
+    bukti = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    verifikator = _verifikator(penerbit, TingkatKepastian.RENDAH)
+    hasil = verifikator.periksa(bukti, 18, HARI_INI, kepastian_minimum=TingkatKepastian.TINGGI)
+    assert not hasil.sah and "tingkat kepastian" in hasil.alasan
+
+
+def test_penerbit_kepastian_rendah_diterima_untuk_layanan_berisiko_rendah(penerbit):
+    bukti = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    verifikator = _verifikator(penerbit, TingkatKepastian.RENDAH)
+    assert verifikator.periksa(bukti, 18, HARI_INI, kepastian_minimum=TingkatKepastian.RENDAH).sah
+
+
+def test_penerbit_kepastian_tinggi_memenuhi_semua_kebutuhan(penerbit):
+    bukti = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    verifikator = _verifikator(penerbit, TingkatKepastian.TINGGI)
+    for minimum in TingkatKepastian:
+        assert verifikator.periksa(bukti, 18, HARI_INI, kepastian_minimum=minimum).sah
+
+
+def test_tingkat_kepastian_ditentukan_pemverifikasi_bukan_penerbit(penerbit):
+    """Penerbit yang sama dipercaya berbeda oleh dua platform; klaimnya tidak membawa tingkat apa pun."""
+    bukti = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    assert "kepastian" not in bukti.klaim.model_dump()
+    longgar = _verifikator(penerbit, TingkatKepastian.TINGGI)
+    ketat = _verifikator(penerbit, TingkatKepastian.RENDAH)
+    assert longgar.periksa(bukti, 18, HARI_INI, TingkatKepastian.TINGGI).sah
+    assert not ketat.periksa(bukti, 18, HARI_INI, TingkatKepastian.TINGGI).sah
+
+
+# --- keberatan dan koreksi ------------------------------------------------
+
+
+def test_koreksi_mencabut_klaim_lama_dan_menerbitkan_yang_baru(penerbit):
+    lama = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    verifikator = _verifikator(penerbit, TingkatKepastian.TINGGI, daftar_cabut=penerbit.daftar_cabut)
+    assert verifikator.periksa(lama, 18, HARI_INI).sah
+
+    baru = penerbit.koreksi([lama.klaim.id_klaim], LAHIR_20, HARI_INI)
+
+    hasil_lama = verifikator.periksa(lama, 18, HARI_INI)
+    assert not hasil_lama.sah and "dicabut" in hasil_lama.alasan
+    assert all(verifikator.periksa(k, k.klaim.ambang, HARI_INI).sah for k in baru)
+
+
+def test_koreksi_dengan_tanggal_lahir_benar_yang_lebih_muda_tidak_menghasilkan_klaim_18(penerbit):
+    salah = penerbit.terbitkan(LAHIR_20, 18, HARI_INI)
+    verifikator = _verifikator(penerbit, TingkatKepastian.TINGGI, daftar_cabut=penerbit.daftar_cabut)
+
+    baru = penerbit.koreksi([salah.klaim.id_klaim], LAHIR_14, HARI_INI)
+
+    assert [k.klaim.ambang for k in baru] == [13]
+    assert not verifikator.periksa(salah, 18, HARI_INI).sah
+    assert not any(verifikator.periksa(k, 18, HARI_INI).sah for k in baru)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import secrets
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import date, timedelta
 
@@ -33,6 +34,8 @@ class Penerbit:
     def __init__(self, nama: str, kunci: Ed25519PrivateKey | None = None) -> None:
         self.nama = nama
         self._kunci = kunci or Ed25519PrivateKey.generate()
+        # Id klaim yang dicabut oleh penerbit ini. Pemverifikasi dapat memakai himpunan yang sama.
+        self.daftar_cabut: set[str] = set()
 
     @property
     def kunci_publik(self) -> bytes:
@@ -74,3 +77,18 @@ class Penerbit:
             if usia_penuh(tanggal_lahir, hari_ini) >= ambang:
                 hasil.append(self.terbitkan(tanggal_lahir, ambang, hari_ini, masa_berlaku_hari))
         return hasil
+
+    def koreksi(
+        self,
+        id_klaim_lama: Iterable[str],
+        tanggal_lahir_benar: date,
+        hari_ini: date,
+        masa_berlaku_hari: int = 30,
+    ) -> list[KlaimBertandaTangan]:
+        """Jalur keberatan: mencabut klaim lama lalu menerbitkan ulang dari data yang benar.
+
+        PP 17/2025 Pasal 22 ayat (3) huruf g meminta mekanisme keberatan atau koreksi bila
+        usia yang teridentifikasi tidak sesuai usia sebenarnya.
+        """
+        self.daftar_cabut.update(id_klaim_lama)
+        return self.terbitkan_semua(tanggal_lahir_benar, hari_ini, masa_berlaku_hari)

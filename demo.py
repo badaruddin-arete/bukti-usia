@@ -2,14 +2,14 @@
 
 from datetime import date
 
-from bukti_usia import Dompet, Pemverifikasi, Penerbit
+from bukti_usia import Dompet, Pemverifikasi, Penerbit, PenerbitTepercaya, TingkatKepastian
 
 HARI_INI = date(2026, 11, 9)
 
 
 def main() -> None:
     kelurahan = Penerbit("Kelurahan Contoh")
-    platform = Pemverifikasi({kelurahan.nama: kelurahan.kunci_publik})
+    platform = Pemverifikasi({kelurahan.nama: PenerbitTepercaya(kelurahan.kunci_publik, TingkatKepastian.TINGGI)})
 
     # Penerbit melihat tanggal lahir satu kali, lalu menerbitkan klaim tanpa tanggal itu.
     dompet = Dompet()

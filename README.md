@@ -42,7 +42,8 @@ sequenceDiagram
 | Penerbit menolak menerbitkan klaim yang tidak benar | Klaim bertanda tangan harus jujur pada saat diterbitkan. |
 | Pemegang memilih klaim terkecil yang cukup | Menyerahkan "≥ 18" untuk kebutuhan "≥ 13" membuka lebih dari perlu. |
 | Klaim berumur pendek (bawaan 30 hari) | Membatasi kerugian bila klaim bocor. |
-| Daftar pencabutan | Menyediakan jalur koreksi bila data usia ternyata keliru. |
+| Daftar pencabutan dan `koreksi` oleh penerbit | Jalur keberatan: klaim lama dicabut dan diterbitkan ulang dari data yang benar (PP 17/2025 Pasal 22 ayat 3 huruf g). |
+| Tingkat kepastian ditetapkan pemverifikasi untuk tiap penerbit | Penerbit tidak bisa menaikkan kepercayaannya sendiri, dan layanan berisiko tinggi dapat menuntut penerbit yang lebih kuat (Pasal 22 ayat 2). |
 | Pemverifikasi tidak menyimpan klaim | Selaras dengan ketentuan bahwa data verifikasi dipakai untuk verifikasi saja. |
 
 ## Dasar hukum yang dirujuk
@@ -68,14 +69,14 @@ Karena itu karya ini berhenti di tanda tangan dan menjadikan ZKP sebagai arah la
 
 ## Wawancara awal
 
-Kuesioner pilihan ganda lewat WhatsApp, tanpa nama dan sukarela, dijawab 5 orang (4 mahasiswa, semuanya kenalan penyusun). Ini gambaran awal, bukan temuan yang dapat digeneralisasi.
+Kuesioner pilihan ganda lewat WhatsApp, tanpa nama dan sukarela, dijawab 7 orang (4 mahasiswa, semuanya kenalan penyusun). Ini gambaran awal, bukan temuan yang dapat digeneralisasi.
 
-- 4 dari 5 memilih foto KTP sebagai data yang paling berat diberikan untuk membuktikan usia.
-- 3 dari 5 merasa lebih tenang bila cukup menunjukkan "di atas 18" tanpa tanggal lahir; 1 justru kurang percaya.
-- Tidak ada yang mempercayai platform untuk menyatakan usia; 3 dari 4 yang menjawab memilih orang tua atau diri sendiri, 1 memilih pemerintah.
-- Jalur keberatan yang mudah ditemukan adalah kebutuhan yang paling banyak dipilih (3 dari 5).
+- 5 dari 7 memilih foto KTP sebagai data yang paling berat diberikan untuk membuktikan usia.
+- 5 dari 7 merasa lebih tenang bila cukup menunjukkan "di atas 18" tanpa tanggal lahir; 1 justru kurang percaya.
+- Tidak ada yang mempercayai platform untuk menyatakan usia. Dari 6 yang menjawab, 4 memilih orang tua atau diri sendiri, 1 pemerintah, dan 1 sekolah atau kampus.
+- Jalur keberatan yang mudah ditemukan adalah kebutuhan yang paling banyak dipilih (4 dari 7).
 
-Temuan kedua dan ketiga menantang asumsi bahwa kelurahan adalah penerbit yang paling dipercaya. Rincian dan keterbatasannya ada di halaman studi.
+Temuan ketiga menantang asumsi bahwa satu jenis penerbit, misalnya kelurahan, paling dipercaya. Karena itu pemverifikasi menetapkan tingkat kepastian tiap penerbit sendiri, sehingga pernyataan orang tua dapat diterima untuk layanan berisiko rendah tanpa dianggap setara dengan catatan kependudukan. Temuan keempat melatarbelakangi jalur `koreksi`. Rincian dan keterbatasannya ada di halaman studi.
 
 ## Menjalankan
 
@@ -85,7 +86,7 @@ python demo.py
 python -m pytest
 ```
 
-20 uji otomatis mencakup penerbitan, penolakan klaim palsu, kedaluwarsa, pencabutan, penerbit tak dikenal, penyamaran dengan kunci lain, dan minimisasi.
+26 uji otomatis mencakup penerbitan, penolakan klaim palsu, kedaluwarsa, pencabutan dan koreksi, penerbit tak dikenal, penyamaran dengan kunci lain, tingkat kepastian penerbit, dan minimisasi.
 
 ## Transparansi
 

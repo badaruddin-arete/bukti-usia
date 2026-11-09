@@ -2,7 +2,7 @@
 
 from .klaim import AMBANG_DIDUKUNG, Klaim
 from .pemegang import Dompet
-from .pemverifikasi import Hasil, Pemverifikasi
+from .pemverifikasi import Hasil, Pemverifikasi, PenerbitTepercaya, TingkatKepastian
 from .penerbit import KlaimBertandaTangan, Penerbit, PenerbitError, usia_penuh
 
 __all__ = [
@@ -14,5 +14,7 @@ __all__ = [
     "Pemverifikasi",
     "Penerbit",
     "PenerbitError",
+    "PenerbitTepercaya",
+    "TingkatKepastian",
     "usia_penuh",
 ]
