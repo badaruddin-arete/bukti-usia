@@ -11,9 +11,9 @@ from datetime import date
 
 from pydantic import BaseModel, ConfigDict, Field
 
-# Ambang yang didukung. Angka 13, 16, dan 18 mengikuti jenjang usia pada ringkasan
-# PP 17/2025 (PP Tunas) dari sumber sekunder; periksa teks resminya sebelum
-# dipakai sungguhan.
+# Ambang yang didukung. Pasal 20 ayat (2) PP 17/2025 membagi rentang usia menjadi 3-5,
+# 6-9, 10-12, 13-15, dan 16 hingga di bawah 18 tahun. Prototipe sengaja hanya memakai
+# batas 13, 16, dan 18 (dewasa) agar tetap kecil; batas lain mudah ditambahkan.
 AMBANG_DIDUKUNG: tuple[int, ...] = (13, 16, 18)
 
 VERSI_KLAIM = 1

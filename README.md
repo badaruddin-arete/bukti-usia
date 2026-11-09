@@ -30,10 +30,12 @@ Penerbit menandatangani pernyataan seperti "pemegang berusia sedikitnya 13 tahun
 
 ## Dasar hukum yang dirujuk
 
-Rujukan berikut berasal dari ringkasan sumber sekunder dan **perlu dicocokkan dengan teks resmi** sebelum dipakai sungguhan.
+Dicocokkan dengan teks resmi pada 9 November 2026: UU 27/2022 dari JDIH Kemenkeu dan PP 17/2025 dari JDIH Komdigi. Kedua salinan berasal dari hasil pindaian, sehingga kutipan tetap sebaiknya dibandingkan dengan lembaran negara.
 
-- UU 27/2022 tentang Pelindungan Data Pribadi: pengumpulan data yang terbatas dan spesifik, pemrosesan sesuai tujuan, dan persetujuan orang tua untuk data anak.
-- PP 17/2025 (PP Tunas): kewajiban verifikasi usia bagi penyelenggara sistem elektronik, dengan data verifikasi hanya untuk verifikasi, dihapus setelahnya, dan tersedianya jalur keberatan.
+- **UU 27/2022 (Pelindungan Data Pribadi):** Pasal 16 ayat (2) huruf a (pengumpulan terbatas dan spesifik) dan huruf b (pemrosesan sesuai tujuan); Pasal 25 ayat (2) (data anak wajib disetujui orang tua atau wali); Pasal 6 (hak memperbaiki data yang keliru).
+- **PP 17/2025 (PP Tunas):** Pasal 20 ayat (2) (rentang usia 3-5, 6-9, 10-12, 13-15, 16 sampai di bawah 18 tahun); Pasal 22 ayat (3) huruf a (melindungi privasi dan data pribadi), huruf e (data hanya untuk verifikasi usia), huruf f (dihapus setelah tujuan terpenuhi), huruf g (mekanisme keberatan atau koreksi); Pasal 22 ayat (2) (tingkat kepastian sesuai risiko).
+
+Prototipe hanya memakai batas 13, 16, dan 18; rentang 3-5, 6-9, dan 10-12 tidak dicakup.
 
 ## Keterbatasan
 
