@@ -1,6 +1,6 @@
 # Bukti Usia: prototipe kedaulatan data dengan tanda tangan digital
 
-Karya 3 dari rangkaian empat karya filsafat teknologi. Studi *Value Sensitive Design* tentang pertanyaan: bagaimana sebuah platform memenuhi kewajiban memverifikasi usia pengguna tanpa mengumpulkan lebih dari yang perlu?
+Karya 3 dari rangkaian karya filsafat teknologi. Studi *Value Sensitive Design* tentang pertanyaan: bagaimana sebuah platform memenuhi kewajiban memverifikasi usia pengguna tanpa mengumpulkan lebih dari yang perlu?
 
 Prototipe ini sengaja kecil. Ia memakai **tanda tangan digital saja**, bukan *zero-knowledge proof* (ZKP), dan keterbatasannya dijelaskan terang di bawah.
 
@@ -80,4 +80,4 @@ Rancangan, kode, dan pengujian disusun dengan bantuan AI (Claude). Pilihan kasus
 
 ## Lisensi
 
-All rights reserved. Kode ini ditampilkan sebagai portofolio dan tidak boleh disalin atau dipakai ulang tanpa izin tertulis.
+All rights reserved. Kode ini dapat dibaca dan dipelajari, tetapi tidak boleh disalin atau dipakai ulang tanpa izin tertulis.
